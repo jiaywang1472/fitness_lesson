@@ -1,9 +1,9 @@
 <link rel="stylesheet" href="./style.css">
 
-rm *\ 2.*
+
 
 i=1
-stat -f "%SB %N" -t "%Y%m%d%H%M%S" IMG_*.GIF | sort | cut -d' ' -f2- | while IFS= read -r f; do
+stat -f "%SB %N" -t "%Y%m%d%H%M%S" *.gif | sort | cut -d' ' -f2- | while IFS= read -r f; do
     echo "正在处理: $f -> $i.GIF"
     mv -- "$f" "$i.GIF"
     i=$((i+1))
@@ -20,11 +20,20 @@ while IFS= read -r f; do
 done < <(stat -f "%SB %N" -t "%Y%m%d%H%M%S" IMG_*.PNG | sort | cut -d' ' -f2-)
 
 
+i=1
+while IFS= read -r f; do
+    echo "重命名: $f -> $i.webp"
+    mv -- "$f" "$i.webp"
+    i=$((i+1))
+done < <(stat -f "%SB %N" -t "%Y%m%d%H%M%S" *.webp | sort | cut -d' ' -f2-)
+
+
 src="//img\.xiumi\.us[^"]*\.GIF
 src="./images/.GIF
 
 
 src="//img\.xiumi\.us[^"]*\.JPG
 src="./images/.PNG
+src="./images/.webp
 
 \./images/[\w-]+\.JPG
